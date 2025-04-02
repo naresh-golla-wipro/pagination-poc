@@ -4,12 +4,16 @@ import './index.css'
 import App from './App.jsx'
 import {Provider} from "react-redux";
 import store from "./store.js"
+import Lazyloading from './LazyLoading.jsx';
+import UnifiedTable from './UnifiedTable.jsx';
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store} >
-    <App />
+    {/* <App /> */}
+    {/* <Lazyloading /> */}
+    <UnifiedTable useLazyLoading={true}/>
     </Provider>
   </StrictMode>,
 )

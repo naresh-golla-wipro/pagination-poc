@@ -20,32 +20,22 @@ const recordsSlice = createSlice({
     fetchRecordsInitiate(state, action) {
       state.loading = true;
       state.error = null;
-      if (!state.loadingPages.includes(action.payload)) {
-        state.loadingPages.push(action.payload); // Add page to loadingPages
-      }
-      // state.loadingPages.add(action.payload); // added page to loadingPages
     },
     fetchRecordsSuccess(state, action) {
+      console.log("fetchRecordsSuccess:state",state,"action:",action)
       const { page, records, total } = action.payload;
       state.data[page] = records
       state.totalRecords = total;
       state.loading = false;
-      state.loadingPages = state.loadingPages.filter((p) => p !== page); // Remove page from loadingPages
-      // state.loadingPages.delete(page); // Remove page to loadingPages
       console.log("state updated after success", state.data)
     },
     fetchRecordsFailure(state, action) {
       state.error = action.payload;
       state.loading = false;
-      state.loadingPages = state.loadingPages.filter((p) => p !== action.payload.page); // Remove page from loadingPages
-      // state.loadingPages.delete(action.payload.page) // Remove page to loadingPages
     },
     setItemsPerPage(state, action) {
       state.itemsPerPage = action.payload; 
-      // state.loading.clear() 
       // state.data = {}; // Reset data when items per page changes
-      // state.loadingPages = []; // Clear loadingPages
-      // state.loadingPages.clear() // Clear loadingPages
     },
   },
 });

@@ -15,7 +15,7 @@ const Table = ({ records }) => {
       <tbody>
         {records.map((record, id) => (
           <tr key={id}>
-            <td>{record.id}</td>
+            <td>{id + 1}</td>
             <td>{record.title}</td>
             <td>{record.body}</td>
           </tr>

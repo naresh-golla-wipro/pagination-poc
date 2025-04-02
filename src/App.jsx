@@ -25,11 +25,6 @@ const App = () => {
     1 / (window.innerWidth / window.screen.width) || 1
   );
   
-  // const ZOOM_LEVELS = [
-  //   0.25, 0.33, 0.5, 0.67, 0.75, 0.8, 0.9, 1.0, 1.1, 1.25, 1.5, 1.75, 2.0, 2.5,
-  //   3.0, 4.0,
-  // ];
-  // let zoomLevel = 1 / (window.innerWidth / window.screen.width);
   const BASE_ITEMS_PER_PAGE = 10; // Base number of items per page at 100% zoom
 
   useEffect(()=>{
