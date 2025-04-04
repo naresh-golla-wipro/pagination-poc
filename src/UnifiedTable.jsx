@@ -209,7 +209,7 @@ const UnifiedTable = ({ useLazyLoading }) => {
         <p>No records for this page yet</p>
       )}
       {currentRecords.length > 0 && <Table records={currentRecords} />}
-      {loading && currentRecords.length > 0 && <p>Loading more records...</p>}
+      {useLazyLoading && loading && currentRecords.length > 0 && <p>Loading more records...</p>}
       {!useLazyLoading && totalRecords > 0 && (
         <Pagination
           currentPage={currentPage}

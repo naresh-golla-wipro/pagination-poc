@@ -13,7 +13,7 @@ createRoot(document.getElementById('root')).render(
     <Provider store={store} >
     {/* <App /> */}
     {/* <Lazyloading /> */}
-    <UnifiedTable useLazyLoading={true}/>
+    <UnifiedTable useLazyLoading={false}/>
     </Provider>
   </StrictMode>,
 )
