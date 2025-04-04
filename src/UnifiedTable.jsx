@@ -130,7 +130,7 @@ const UnifiedTable = ({ useLazyLoading }) => {
   // Updated currentRecords logic
   const currentRecords = (() => {
     if (useLazyLoading) {
-      console.log("data",data)
+      console.log("data", data);
       return Object.values(data).flat();
     } else {
       const startIndex = (currentPage - 1) * reduxItemsPerPage;
@@ -161,7 +161,6 @@ const UnifiedTable = ({ useLazyLoading }) => {
     }
   })();
 
-
   // Lazy loading on scroll
   useEffect(() => {
     const handleScroll = debounce(() => {
@@ -177,9 +176,15 @@ const UnifiedTable = ({ useLazyLoading }) => {
         console.log("Next Page:", nextPage, "Total Pages:", totalPages);
 
         if (nextPage <= totalPages && !data[nextPage]) {
+          const previousScrollPosition = window.scrollY; // Save the current scroll position
           dispatch(fetchRecords(nextPage)); // Fetch the next page
           setCurrentpage(nextPage); // Update the current page
           currentPageRef.current = nextPage; // Update the ref
+
+          // Restore the scroll position after the new records are appended
+          setTimeout(() => {
+            window.scrollTo(0, previousScrollPosition);
+          }, 0);
         }
       }
     }, 200); // Debounce with a delay of 200ms
@@ -194,15 +199,17 @@ const UnifiedTable = ({ useLazyLoading }) => {
   return (
     <div className="app">
       <h1>Table </h1>
+      {!loading && currentRecords.length === 0 && totalRecords > 0 && (
+        <p>No records for this page yet</p>
+      )}
       {useLazyLoading && <p>data pages: {Object.keys(data).length}</p>}
-      {loading && <p>Loading...</p>}
+      {/* {loading && <p>Loading...</p>} */}
       {error && <p>Error...{error}</p>}
       {!loading && currentRecords.length === 0 && totalRecords > 0 && (
         <p>No records for this page yet</p>
       )}
-      {!loading && currentRecords.length > 0 && (
-        <Table records={currentRecords} />
-      )}
+      {currentRecords.length > 0 && <Table records={currentRecords} />}
+      {loading && currentRecords.length > 0 && <p>Loading more records...</p>}
       {!useLazyLoading && totalRecords > 0 && (
         <Pagination
           currentPage={currentPage}
